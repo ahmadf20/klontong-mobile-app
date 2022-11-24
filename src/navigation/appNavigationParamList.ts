@@ -1,8 +1,7 @@
 export type RootStackParamList = {
-  Home: {
-    isSearch: boolean;
-  };
+  Home: undefined;
   ProductDetail: {
     id: string;
   };
+  AddProduct: undefined;
 };

@@ -25,7 +25,7 @@ export const HomeScreen = () => {
   }
 
   return (
-    <Box safeAreaBottom flex="1">
+    <Box safeAreaBottom flex="1" bg="gray.50">
       <FlatList
         px="4"
         flex="1"
