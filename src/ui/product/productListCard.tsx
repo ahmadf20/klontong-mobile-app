@@ -1,6 +1,6 @@
 import {Box, HStack, Image, Text} from 'native-base';
 import React from 'react';
-import {Product} from '../../modules/product/dto/productDTO';
+import {Product} from '../../modules/product/dto/productsDTO';
 
 export const ProductListCard = ({item}: {item: Product}) => {
   return (
@@ -9,7 +9,7 @@ export const ProductListCard = ({item}: {item: Product}) => {
         source={{
           uri: item.image,
         }}
-        alt={item.name}
+        alt={item.name || 'Image'}
         size="lg"
         rounded="md"
       />

@@ -1,4 +1,4 @@
-export type Product = {
+export type ProductDetail = {
   createdAt: Date;
   name: string;
   image: string;
@@ -7,5 +7,10 @@ export type Product = {
   sku: number;
   description: string;
   price: string;
+  id: string;
+};
+
+export type ProductResponse = ProductDetail;
+export type ProductRequest = {
   id: string;
 };

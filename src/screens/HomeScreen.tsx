@@ -2,7 +2,7 @@ import {Box, Center, FlatList, Pressable, Spinner} from 'native-base';
 import React, {useEffect} from 'react';
 import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppNavigation} from '../hooks/useNavigation';
-import {fetchProducts} from '../modules/product/services/productServices';
+import {fetchProducts} from '../modules/product/services/productsServices';
 import {ProductListCard} from '../ui/product/productListCard';
 
 export const HomeScreen = () => {
@@ -30,14 +30,14 @@ export const HomeScreen = () => {
         px="4"
         flex="1"
         ListHeaderComponent={<Box h="4" />}
-        data={data.products}
+        data={data?.items}
         renderItem={({item, index}) => {
           return (
             <Pressable
               key={index}
               onPress={() => {
                 navigate('ProductDetail', {
-                  id: index.toString(),
+                  id: item.id.toString(),
                 });
               }}>
               <ProductListCard item={item} />

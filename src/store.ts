@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {productReducer} from './modules/product/cartSlice';
+import {productReducer} from './modules/product/productSlice';
+import {productsReducer} from './modules/product/productsSlice';
 
 // const middlewares = [];
 
@@ -9,7 +10,8 @@ import {productReducer} from './modules/product/cartSlice';
 // }
 
 const reducers = {
-  products: productReducer,
+  products: productsReducer,
+  product: productReducer,
 };
 
 export const store = configureStore({
