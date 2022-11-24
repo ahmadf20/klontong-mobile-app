@@ -30,7 +30,7 @@ export const AppNavigation = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Klontong',
+          title: 'Home',
           headerRight: () => (
             <Button onPress={() => navigate('AddProduct')} variant="ghost">
               <Icon.Add fill={colors.primary[700]} />
@@ -43,7 +43,11 @@ export const AppNavigation = () => {
         component={ProductDetailScreen}
         options={{title: 'Product Detail'}}
       />
-      <Stack.Screen name="AddProduct" component={AddProductScreen} />
+      <Stack.Screen
+        name="AddProduct"
+        component={AddProductScreen}
+        options={{title: 'Add Product'}}
+      />
     </Stack.Navigator>
   );
 };

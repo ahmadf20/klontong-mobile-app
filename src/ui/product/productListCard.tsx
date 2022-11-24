@@ -4,7 +4,7 @@ import {Product} from '../../modules/product/dto/productsDTO';
 
 export const ProductListCard = ({item}: {item: Product}) => {
   return (
-    <HStack space="4" shadow="1" bg="white" p="3" rounded="lg" mb="3">
+    <HStack space="3" bg="white" px="4" pb="4" rounded="lg">
       <Image
         source={{
           uri: item.image,
@@ -22,7 +22,7 @@ export const ProductListCard = ({item}: {item: Product}) => {
         </Text>
         <HStack>
           <Text color="dark.300" fontWeight="semibold" mt="2" fontSize="sm">
-            {`${item.sku} | `}
+            {`${item.sku} • `}
           </Text>
           <Text color="green.700" fontWeight="semibold" mt="2" fontSize="sm">
             {`$${item.price}`}

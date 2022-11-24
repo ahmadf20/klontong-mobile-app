@@ -25,9 +25,8 @@ export const HomeScreen = () => {
   }
 
   return (
-    <Box safeAreaBottom flex="1" bg="gray.50">
+    <Box safeAreaBottom flex="1" bg="white">
       <FlatList
-        px="4"
         flex="1"
         ListHeaderComponent={<Box h="4" />}
         data={data?.items}
