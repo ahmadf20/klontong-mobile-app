@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {State} from '../../types/stateTypes';
-import {ProductsResponse} from './dto/productsDTO';
-import {fetchProducts} from './services/productsServices';
+import {State} from '../../../types/stateTypes';
+import {ProductsResponse} from '../dto/productsDTO';
+import {fetchProducts} from '../services/productsServices';
 
 const initialState: State<ProductsResponse> = {
   data: undefined,
@@ -16,9 +16,17 @@ const productsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchProducts.pending, state => {
-        state.status = 'loading';
+        if (state.status !== 'idle') {
+          state.status = 'refreshing';
+        } else {
+          state.status = 'loading';
+        }
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
+        if (state.status === 'refreshing') {
+          state.data = undefined;
+        }
+
         state.status = 'succeeded';
         state.data = {
           ...state.data,

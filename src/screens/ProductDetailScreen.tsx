@@ -10,7 +10,8 @@ import {
   Text,
   VStack,
 } from 'native-base';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
+import {RefreshControl} from 'react-native';
 import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppRoute} from '../hooks/useNavigation';
 import {fetchProduct} from '../modules/product/services/productsServices';
@@ -20,11 +21,23 @@ export const ProductDetailScreen = () => {
   const appDispatch = useAppDispatch();
   const {params} = useAppRoute('ProductDetail');
 
-  useEffect(() => {
+  const [isLoading, isRefreshing, isIdle] = [
+    status === 'loading',
+    status === 'refreshing',
+    status === 'idle',
+  ];
+
+  const handleFetch = useCallback(async () => {
     appDispatch(fetchProduct({id: params.id}));
   }, [appDispatch, params.id]);
 
-  if (status === 'loading') {
+  useEffect(() => {
+    if (isIdle) {
+      handleFetch();
+    }
+  }, [isIdle, handleFetch]);
+
+  if (isLoading) {
     return (
       <Center safeArea flex="1">
         <Spinner />
@@ -34,7 +47,11 @@ export const ProductDetailScreen = () => {
 
   return (
     <VStack safeAreaBottom flex="1" bg="white">
-      <ScrollView flex="1">
+      <ScrollView
+        flex="1"
+        refreshControl={
+          <RefreshControl onRefresh={handleFetch} refreshing={isRefreshing} />
+        }>
         <VStack space="3" p="4">
           <AspectRatio ratio={3 / 4}>
             <Image
@@ -48,12 +65,7 @@ export const ProductDetailScreen = () => {
           <Text fontSize="xl" bold>
             {data?.name}
           </Text>
-          <Text color="gray.500">
-            {data?.description} Lorem, ipsum dolor sit amet consectetur
-            adipisicing elit. Porro quaerat inventore non quos odio, in ipsam,
-            doloribus vitae hic voluptate tempore, libero exercitationem
-            blanditiis dolores possimus modi dignissimos laboriosam accusamus.
-          </Text>
+          <Text color="gray.500">{data?.description}</Text>
           <HStack justifyContent="space-between">
             <Box>
               <Text>Stock</Text>

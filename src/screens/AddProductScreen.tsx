@@ -12,30 +12,40 @@ import {
 } from 'native-base';
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {ProductDetail} from '../modules/product/dto/productDTO';
+import {useAppDispatch} from '../hooks';
+import {useAppNavigation} from '../hooks/useNavigation';
+import {AddProductRequest} from '../modules/product/dto/addProductDTO';
+import {
+  fetchProducts,
+  postProduct,
+} from '../modules/product/services/productsServices';
 import {FormControl} from '../ui/_base';
 import {Icon} from '../ui/_base/icons';
 import {allowOnlyNumber} from '../utils/formValidator';
 
-type FormData = Omit<ProductDetail, 'categoryName' | 'id'>;
+type FormData = AddProductRequest;
 const categories = ['A', 'B', 'C', 'D'];
 
 export const AddProductScreen = () => {
   const {colors} = useTheme();
+  const dispatch = useAppDispatch();
+  const {goBack} = useAppNavigation();
+
   const {
     control,
     handleSubmit,
-    formState: {errors, isValid},
+    formState: {errors, isValid, isSubmitting},
   } = useForm<FormData>({
     mode: 'onBlur',
-    defaultValues: {
-      // id: new Date().getUTCMilliseconds().toString() + Math.random().toString(),
-      createdAt: new Date(),
-    },
+    defaultValues: {},
   });
 
-  const onSubmit = (data: FormData) => {
-    return console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      await dispatch(postProduct(data));
+      dispatch(fetchProducts());
+      goBack();
+    } catch (error) {}
   };
 
   const defaultRules = {
@@ -170,7 +180,11 @@ export const AddProductScreen = () => {
         </VStack>
       </ScrollView>
 
-      <Button isDisabled={!isValid} m="4" onPress={handleSubmit(onSubmit)}>
+      <Button
+        isDisabled={!isValid}
+        m="4"
+        onPress={handleSubmit(onSubmit)}
+        isLoading={isSubmitting}>
         Save
       </Button>
     </VStack>
