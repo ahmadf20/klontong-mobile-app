@@ -31,13 +31,15 @@ export const ProductDetailScreen = () => {
     appDispatch(fetchProduct({id: params.id}));
   }, [appDispatch, params.id]);
 
+  const product = data?.filter(e => e.id === params.id)[0];
+
   useEffect(() => {
-    if (isIdle) {
+    if (isIdle || !product) {
       handleFetch();
     }
-  }, [isIdle, handleFetch]);
+  }, [isIdle, handleFetch, product]);
 
-  if (isLoading) {
+  if (isLoading || !product) {
     return (
       <Center safeArea flex="1">
         <Spinner />
@@ -56,27 +58,27 @@ export const ProductDetailScreen = () => {
           <AspectRatio ratio={3 / 4}>
             <Image
               source={{
-                uri: data?.image,
+                uri: product?.image,
               }}
-              alt={data?.name || 'Image'}
+              alt={product?.name || 'Image'}
               rounded="md"
             />
           </AspectRatio>
-          <Text fontSize="xl" bold>
-            {data?.name}
+          <Text fontSize="xl" bold mt="2">
+            {product?.name}
           </Text>
-          <Text color="gray.500">{data?.description}</Text>
+          <Text color="gray.500">{product?.description}</Text>
           <HStack justifyContent="space-between">
             <Box>
               <Text>Stock</Text>
               <Text color="dark.300" fontWeight="semibold" mt="2" fontSize="lg">
-                {`${data?.sku}`}
+                {`${product?.sku}`}
               </Text>
             </Box>
             <Box>
               <Text>Category</Text>
               <Text color="gray.700" fontWeight="semibold" mt="2" fontSize="lg">
-                {`${data?.categoryName}`}
+                {`${product?.categoryName}`}
               </Text>
             </Box>
             <Box>
@@ -86,7 +88,7 @@ export const ProductDetailScreen = () => {
                 fontWeight="semibold"
                 mt="2"
                 fontSize="lg">
-                {`$${data?.price}`}
+                {`$${product?.price}`}
               </Text>
             </Box>
           </HStack>

@@ -3,7 +3,7 @@ import {State} from '../../../types/stateTypes';
 import {ProductResponse} from '../dto/productDTO';
 import {fetchProduct} from '../services/productsServices';
 
-const initialState: State<ProductResponse> = {
+const initialState: State<ProductResponse[]> = {
   data: undefined,
   status: 'idle',
   error: null,
@@ -28,7 +28,7 @@ const productSlice = createSlice({
         }
 
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data = [...(state?.data ?? []), action.payload];
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         state.status = 'failed';
