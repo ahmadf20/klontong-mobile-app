@@ -1,14 +1,22 @@
 import {Box, Center, FlatList, Pressable, Spinner} from 'native-base';
 import React, {useEffect} from 'react';
 import {useAppSelector, useAppDispatch} from '../hooks';
-import {useAppNavigation} from '../hooks/useNavigation';
+import {useAppNavigation, useAppRoute} from '../hooks/useNavigation';
 import {fetchProducts} from '../modules/product/services/productServices';
 import {ProductListCard} from '../ui/product/productListCard';
 
-export const HomeScreen = () => {
+export const ProductDetailScreen = () => {
   const {data, status} = useAppSelector(state => state.products);
   const appDispatch = useAppDispatch();
-  const {navigate} = useAppNavigation();
+
+  const {setOptions} = useAppNavigation();
+  const {params} = useAppRoute('ProductDetail');
+
+  useEffect(() => {
+    setOptions({
+      title: params.id,
+    });
+  }, [params.id, setOptions]);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -36,9 +44,7 @@ export const HomeScreen = () => {
             <Pressable
               key={index}
               onPress={() => {
-                navigate('ProductDetail', {
-                  id: index.toString(),
-                });
+                console.log(item.image);
               }}>
               <ProductListCard item={item} />
             </Pressable>

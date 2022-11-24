@@ -2,13 +2,16 @@ import {NativeBaseProvider} from 'native-base';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {store} from './src';
-import {HomeScreen} from './src/screens';
+import {NavigationContainer} from '@react-navigation/native';
+import {AppNavigation} from './src/navigation/appNavigation';
 
 const App = () => {
   return (
     <Provider store={store}>
       <NativeBaseProvider>
-        <HomeScreen />
+        <NavigationContainer>
+          <AppNavigation />
+        </NavigationContainer>
       </NativeBaseProvider>
     </Provider>
   );
