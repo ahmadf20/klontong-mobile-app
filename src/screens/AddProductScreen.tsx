@@ -20,7 +20,7 @@ import {
   postProduct,
 } from '../modules/product/services/productsServices';
 import {FormControl} from '../ui/_base';
-import {Icon} from '../ui/_base/icons';
+import {Icon} from '../ui/_base';
 import {allowOnlyNumber} from '../utils/formValidator';
 
 type FormData = AddProductRequest;
@@ -171,6 +171,7 @@ export const AddProductScreen = () => {
                     <Select.Item
                       label={`Category ${item}`}
                       value={index.toString()}
+                      key={index}
                     />
                   ))}
                 </Select>

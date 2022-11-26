@@ -4,21 +4,14 @@ import {Provider} from 'react-redux';
 import {store} from './src';
 import {NavigationContainer} from '@react-navigation/native';
 import {AppNavigation} from './src/navigation/appNavigation';
-import {ButtonStyle, InputStyle, TextAreaStyle} from './src/themes';
+import {myTheme} from './src/themes';
 
-const theme = extendTheme({
-  colors: {},
-  components: {
-    Button: ButtonStyle,
-    Input: InputStyle,
-    TextArea: TextAreaStyle,
-  },
-});
+const theme = extendTheme(myTheme);
 
 const App = () => {
   return (
     <Provider store={store}>
-      <NativeBaseProvider theme={theme}>
+      <NativeBaseProvider theme={extendTheme(myTheme)}>
         <NavigationContainer>
           <AppNavigation />
         </NavigationContainer>

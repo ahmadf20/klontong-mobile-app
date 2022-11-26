@@ -1,4 +1,4 @@
-export const TextAreaStyle = {
+export const textAreaStyle = {
   defaultProps: {
     size: 'md',
     p: '3',

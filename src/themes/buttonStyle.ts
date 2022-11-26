@@ -1,4 +1,4 @@
-export const ButtonStyle = {
+export const buttonStyle = {
   baseStyle: {},
   defaultProps: {
     p: '3',

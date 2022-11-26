@@ -1,4 +1,4 @@
-export const InputStyle = {
+export const inputStyle = {
   baseStyle: {},
   defaultProps: {
     size: 'md',

@@ -2,11 +2,9 @@ import {
   AspectRatio,
   Box,
   Button,
-  Center,
   HStack,
   Image,
   ScrollView,
-  Spinner,
   Text,
   VStack,
 } from 'native-base';
@@ -15,6 +13,7 @@ import {RefreshControl} from 'react-native';
 import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppRoute} from '../hooks/useNavigation';
 import {fetchProduct} from '../modules/product/services/productsServices';
+import {PageSpinner} from '../ui/_base';
 
 export const ProductDetailScreen = () => {
   const {data, status} = useAppSelector(state => state.product);
@@ -40,11 +39,7 @@ export const ProductDetailScreen = () => {
   }, [isIdle, handleFetch, product]);
 
   if (isLoading || !product) {
-    return (
-      <Center safeArea flex="1">
-        <Spinner />
-      </Center>
-    );
+    return <PageSpinner />;
   }
 
   return (

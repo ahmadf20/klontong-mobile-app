@@ -8,7 +8,7 @@ import {RootStackParamList} from './appNavigationParamList';
 import {Button, useTheme} from 'native-base';
 import {useAppNavigation} from '../hooks/useNavigation';
 import {AddProductScreen} from '../screens/AddProductScreen';
-import {Icon} from '../ui/_base/icons';
+import {Icon} from '../ui/_base';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

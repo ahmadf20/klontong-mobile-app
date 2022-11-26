@@ -2,12 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {productReducer} from './modules/product/slices/productSlice';
 import {productsReducer} from './modules/product/slices/productsSlice';
 
-// const middlewares = [];
-
-// if (__DEV__) {
-//   const createDebugger = require('redux-flipper').default;
-//   middlewares.push(createDebugger());
-// }
+const createDebugger = require('redux-flipper').default;
 
 const reducers = {
   products: productsReducer,
@@ -16,7 +11,8 @@ const reducers = {
 
 export const store = configureStore({
   reducer: reducers,
-  // middleware: middlewares,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(createDebugger()),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

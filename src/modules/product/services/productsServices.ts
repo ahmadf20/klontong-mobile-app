@@ -7,13 +7,10 @@ import {ProductsResponse} from '../dto/productsDTO';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async (param: PaginationParams | undefined, {rejectWithValue}) => {
+  async (params: PaginationParams | undefined, {rejectWithValue}) => {
     try {
       const res = await appAxios.get<ProductsResponse>('/products', {
-        params: {
-          page: 1,
-          limit: 10,
-        },
+        params,
       });
 
       return res.data;
