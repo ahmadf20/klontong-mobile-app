@@ -43,7 +43,12 @@ export const AddProductScreen = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await dispatch(postProduct(data));
-      dispatch(fetchProducts());
+      dispatch(
+        fetchProducts({
+          page: 1,
+          limit: 10,
+        }),
+      );
       goBack();
     } catch (error) {}
   };

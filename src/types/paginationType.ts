@@ -6,4 +6,5 @@ export type Pagination<T> = {
 export type PaginationParams = {
   page: number;
   limit: number;
+  filter?: string;
 };

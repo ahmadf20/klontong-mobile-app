@@ -11,4 +11,5 @@ export type State<T> = {
   currentPage?: number;
   totalPage?: number;
   totalItem?: number;
+  filter?: string;
 };

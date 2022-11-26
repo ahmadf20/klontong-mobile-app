@@ -9,17 +9,17 @@ const initialState: State<Product[]> = {
   error: null,
   currentPage: 1,
   totalPage: 0,
+  filter: '',
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    resetProducts: state => {
-      return {
-        ...state,
-        currentPage: 1,
-      };
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+      state.status = 'idle';
+      state.data = undefined;
     },
   },
   extraReducers: builder => {
@@ -60,4 +60,4 @@ const productsSlice = createSlice({
 });
 
 export const productsReducer = productsSlice.reducer;
-export const {} = productsSlice.actions;
+export const {setFilter} = productsSlice.actions;
