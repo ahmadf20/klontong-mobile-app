@@ -10,6 +10,7 @@ import {store} from './src/stores/store';
 Sentry.init({
   dsn: 'https://ac2ed3b8fef44b2daf7ec609bc7e1e89@o413143.ingest.sentry.io/4504228435001344',
   tracesSampleRate: 1.0,
+  enabled: !__DEV__,
 });
 
 const theme = extendTheme(myTheme);
