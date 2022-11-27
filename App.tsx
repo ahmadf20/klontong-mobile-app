@@ -5,6 +5,12 @@ import {store} from './src';
 import {NavigationContainer} from '@react-navigation/native';
 import {AppNavigation} from './src/navigation/appNavigation';
 import {myTheme} from './src/themes';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://ac2ed3b8fef44b2daf7ec609bc7e1e89@o413143.ingest.sentry.io/4504228435001344',
+  tracesSampleRate: 1.0,
+});
 
 const theme = extendTheme(myTheme);
 
@@ -26,4 +32,4 @@ declare module 'native-base' {
   interface ICustomTheme extends CustomThemeType {}
 }
 
-export default App;
+export default Sentry.wrap(App);
