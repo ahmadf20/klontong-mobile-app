@@ -47,8 +47,11 @@ This app uses [MockAPI](https://mockapi.io) as the mock backend API service.
 - Secure storage as State persistence for storing auth token
 
 ### Screen Recording
-- [Screen Recording 1](media/screen-recording-1.mp4)
-- [Screen Recording 2](media/screen-recording-2.mp4)
+
+https://user-images.githubusercontent.com/39834619/204120536-68541ef6-eab3-4105-9e88-4c266dde059c.mp4
+
+https://user-images.githubusercontent.com/39834619/204120561-2d70ae92-13df-4a39-893c-875ca828b037.mp4
+
 
 ### Error Reporting (Sentry)
 Klontong also has been integrated to error reporting service namely [Sentry](https://sentry.io/) which can help to identify bugs and error on production.
