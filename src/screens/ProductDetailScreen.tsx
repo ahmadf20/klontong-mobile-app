@@ -10,8 +10,8 @@ import {
 } from 'native-base';
 import React, {useCallback, useEffect} from 'react';
 import {RefreshControl} from 'react-native';
-import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppRoute} from '../hooks/useNavigation';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
 import {fetchProduct} from '../modules/product/services/productsServices';
 import {PageSpinner} from '../ui/_base';
 

@@ -1,6 +1,6 @@
 import {Box, Button, Input, ScrollView, Text} from 'native-base';
 import React from 'react';
-import {useAppDispatch} from '../hooks';
+import {useAppDispatch} from '../hooks/useRedux';
 import {login} from '../modules/auth/slices/authSlice';
 import {FormControl} from '../ui/_base';
 

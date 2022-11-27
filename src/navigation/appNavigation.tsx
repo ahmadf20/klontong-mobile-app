@@ -13,12 +13,12 @@ import {RootStackParamList} from './appNavigationParamList';
 import {Box, Button, useTheme} from 'native-base';
 import {useAppNavigation} from '../hooks/useNavigation';
 import {Icon, PageSpinner} from '../ui/_base';
-import {useAppDispatch, useAppSelector} from '../hooks';
 import {logout, restoreToken} from '../modules/auth/slices/authSlice';
 import {
   clearUserSession,
   getUserSession,
 } from '../modules/auth/services/userSessionStorage';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

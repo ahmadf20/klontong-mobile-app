@@ -1,8 +1,8 @@
 import {Box, FlatList, Input, Pressable, Spinner} from 'native-base';
 import React, {useCallback, useEffect} from 'react';
 import {RefreshControl} from 'react-native';
-import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppNavigation} from '../hooks/useNavigation';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
 import {fetchProducts} from '../modules/product/services/productsServices';
 import {setFilter} from '../modules/product/slices/productsSlice';
 import {ProductListCard} from '../ui/product/ProductListCard';

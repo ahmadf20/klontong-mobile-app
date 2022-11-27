@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {authReducer} from './modules/auth/slices/authSlice';
-import {categoriesReducer} from './modules/product/slices/categoriesSlice';
-import {productReducer} from './modules/product/slices/productSlice';
-import {productsReducer} from './modules/product/slices/productsSlice';
+import {authReducer} from '../modules/auth/slices/authSlice';
+import {categoriesReducer} from '../modules/product/slices/categoriesSlice';
+import {productReducer} from '../modules/product/slices/productSlice';
+import {productsReducer} from '../modules/product/slices/productsSlice';
 
 const createDebugger = require('redux-flipper').default;
 

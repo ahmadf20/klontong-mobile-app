@@ -13,8 +13,8 @@ import {
 } from 'native-base';
 import React, {useEffect} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useAppDispatch, useAppSelector} from '../hooks';
 import {useAppNavigation} from '../hooks/useNavigation';
+import {useAppDispatch, useAppSelector} from '../hooks/useRedux';
 import {AddProductRequest} from '../modules/product/dto/addProductDTO';
 import {
   fetchCategories,
