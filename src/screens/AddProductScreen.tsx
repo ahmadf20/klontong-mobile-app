@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   HStack,
+  Image,
   Input,
   ScrollView,
   Select,
@@ -10,12 +11,13 @@ import {
   useTheme,
   VStack,
 } from 'native-base';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useAppDispatch} from '../hooks';
+import {useAppDispatch, useAppSelector} from '../hooks';
 import {useAppNavigation} from '../hooks/useNavigation';
 import {AddProductRequest} from '../modules/product/dto/addProductDTO';
 import {
+  fetchCategories,
   fetchProducts,
   postProduct,
 } from '../modules/product/services/productsServices';
@@ -24,12 +26,22 @@ import {Icon} from '../ui/_base';
 import {allowOnlyNumber} from '../utils/formValidator';
 
 type FormData = AddProductRequest;
-const categories = ['A', 'B', 'C', 'D'];
 
 export const AddProductScreen = () => {
   const {colors} = useTheme();
   const dispatch = useAppDispatch();
   const {goBack} = useAppNavigation();
+
+  const appDispatch = useAppDispatch();
+  const {data: categories = [], status} = useAppSelector(
+    state => state.categories,
+  );
+
+  const isLoading = status === 'loading';
+
+  useEffect(() => {
+    appDispatch(fetchCategories());
+  }, [appDispatch]);
 
   const {
     control,
@@ -40,9 +52,9 @@ export const AddProductScreen = () => {
     defaultValues: {},
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (formData: FormData) => {
     try {
-      await dispatch(postProduct(data));
+      await dispatch(postProduct(formData));
       dispatch(
         fetchProducts({
           page: 1,
@@ -66,24 +78,66 @@ export const AddProductScreen = () => {
         <Text color="gray.500" mb="2" fontWeight="medium">
           Product Image
         </Text>
-        <Box
-          w="32"
-          h="32"
-          borderColor="gray.300"
-          borderWidth="1"
-          bg="gray.50"
-          justifyContent="center"
-          alignItems="center"
-          rounded="md">
-          <Icon.Image width={24} height={24} fill="gray" />
-        </Box>
+
+        <Controller
+          name="image"
+          control={control}
+          rules={defaultRules}
+          render={({field: {onChange, value}}) => (
+            <>
+              {value ? (
+                <Image
+                  source={{
+                    uri: value,
+                  }}
+                  alt={value || 'Image'}
+                  size={32}
+                  rounded="md"
+                />
+              ) : (
+                <Box
+                  w="32"
+                  h="32"
+                  borderColor="gray.300"
+                  borderWidth="1"
+                  bg="gray.50"
+                  justifyContent="center"
+                  alignItems="center"
+                  rounded="md">
+                  <Icon.Image width={24} height={24} fill="gray" />
+                </Box>
+              )}
+              <Text
+                fontSize="xs"
+                color="gray.500"
+                mt="2"
+                onPress={() =>
+                  onChange(
+                    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/888.jpg',
+                  )
+                }>
+                Generate Image
+              </Text>
+            </>
+          )}
+        />
 
         <VStack space="1" mt="3">
           <FormControl label="Product Name" error={errors.name?.message}>
             <Controller
               name="name"
               control={control}
-              rules={defaultRules}
+              rules={{
+                ...defaultRules,
+                maxLength: {
+                  value: 80,
+                  message: 'Max 80 Chars',
+                },
+                minLength: {
+                  value: 10,
+                  message: 'Min 10 Chars',
+                },
+              }}
               render={({field: {onBlur, onChange, value}}) => (
                 <Input
                   value={value}
@@ -98,7 +152,17 @@ export const AddProductScreen = () => {
             <Controller
               name="description"
               control={control}
-              rules={defaultRules}
+              rules={{
+                ...defaultRules,
+                maxLength: {
+                  value: 300,
+                  message: 'Max 300 Chars',
+                },
+                minLength: {
+                  value: 10,
+                  message: 'Min 10 Chars',
+                },
+              }}
               render={({field: {onBlur, onChange, value}}) => (
                 <TextArea
                   autoCompleteType=""
@@ -115,12 +179,7 @@ export const AddProductScreen = () => {
               <Controller
                 name="price"
                 control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: 'Required',
-                  },
-                }}
+                rules={defaultRules}
                 render={({field: {onBlur, onChange, value}}) => (
                   <Input
                     keyboardType="number-pad"
@@ -135,12 +194,7 @@ export const AddProductScreen = () => {
               <Controller
                 name="sku"
                 control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: 'Required',
-                  },
-                }}
+                rules={defaultRules}
                 render={({field: {onBlur, onChange, value}}) => (
                   <Input
                     keyboardType="number-pad"
@@ -171,12 +225,13 @@ export const AddProductScreen = () => {
                     <Box pr="2">
                       <Icon.CircleDropDown fill={colors.gray[400]} />
                     </Box>
-                  }>
-                  {categories.map((item, index) => (
+                  }
+                  isDisabled={isLoading}>
+                  {categories?.map((item, index) => (
                     <Select.Item
-                      label={`Category ${item}`}
-                      value={index.toString()}
-                      key={index}
+                      label={item.name}
+                      value={item.id.toString()}
+                      key={`${item.id}-${index}`}
                     />
                   ))}
                 </Select>

@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {PaginationParams} from '../../../types/paginationType';
 import {appAxios} from '../../../utils/appAxios';
 import {AddProductRequest, AddProductResponse} from '../dto/addProductDTO';
+import {CategoriesResponse} from '../dto/categoryDTO';
 import {ProductRequest, ProductResponse} from '../dto/productDTO';
 import {ProductsResponse} from '../dto/productsDTO';
 
@@ -39,6 +40,19 @@ export const postProduct = createAsyncThunk(
   async (data: AddProductRequest, {rejectWithValue}) => {
     try {
       const res = await appAxios.post<AddProductResponse>('/products', data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue('Something went wrong');
+    }
+  },
+);
+
+export const fetchCategories = createAsyncThunk(
+  'category/fetchCategories',
+  async (_, {rejectWithValue}) => {
+    try {
+      const res = await appAxios.get<CategoriesResponse>('/category');
+
       return res.data;
     } catch (error) {
       return rejectWithValue('Something went wrong');

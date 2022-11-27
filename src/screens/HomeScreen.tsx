@@ -5,7 +5,7 @@ import {useAppSelector, useAppDispatch} from '../hooks';
 import {useAppNavigation} from '../hooks/useNavigation';
 import {fetchProducts} from '../modules/product/services/productsServices';
 import {setFilter} from '../modules/product/slices/productsSlice';
-import {ProductListCard} from '../ui/product/productListCard';
+import {ProductListCard} from '../ui/product/ProductListCard';
 import {PageSpinner} from '../ui/_base';
 import {debounce} from '../utils/debounce';
 
