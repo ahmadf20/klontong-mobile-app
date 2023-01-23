@@ -34,7 +34,7 @@ This app uses [MockAPI](https://mockapi.io) as the mock backend API service.
   - Search/Filter product with debounce
 - `AuthScreen` shows dummy login form. Clicking `Login` button will store dummy token to the `encrypted-storage` and navigate the screen to the `HomeScreen`
 - `ProductDetailScreen` shows the detail information of the product
-- `AddProductScreen` shows form to input new products to database. List of category is fetched dynamically from the mock API.
+- `AddProductScreen` shows form to input new products to database with form validation. List of category is fetched dynamically from the mock API.
 
 ### Features:
 - Browse products
